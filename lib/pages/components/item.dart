@@ -25,7 +25,7 @@ class Item extends StatelessWidget {
                 child: Image.network(item.image),
               ),
             ),
-            SizedBox(width: widthOne * 0.03),
+            SizedBox(width: widthOne * 0.01),
             Expanded(
               flex: 2,
               child: Column(
@@ -34,14 +34,14 @@ class Item extends StatelessWidget {
                   Text(
                     item.id,
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 13,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
                     "0.4" + item.symbol,
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 13,
                       fontWeight: FontWeight.normal,
                       color: Colors.grey,
                     ),
@@ -50,13 +50,13 @@ class Item extends StatelessWidget {
               ),
             ),
             SizedBox(
-              width: widthOne * 0.005,
+              width: widthOne * 0.001,
             ),
             Expanded(
-              flex: 2,
-              child: Container(
+              flex: 1,
+              child: SizedBox(
                 height: heightOne * 0.03,
-                // width: widthOne * 0.2,
+                // width: widthOne * 0.01,
                 child: Sparkline(
                   data: item.sparklineIn7D.price,
                   lineWidth: 2.0,
@@ -82,7 +82,7 @@ class Item extends StatelessWidget {
               ),
             ),
             SizedBox(
-              width: widthOne * 0.05,
+              width: widthOne * 0.04,
             ),
             Expanded(
               flex: 2,
@@ -92,27 +92,36 @@ class Item extends StatelessWidget {
                   Text(
                     '\$ ' + item.currentPrice.toString(),
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 13,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Row(
                     children: [
                       Text(
-                        item.priceChange24H.toStringAsFixed(2),
+                        item.priceChange24H.toStringAsFixed(2).contains('-')
+                            ? "- \$" +
+                                item.priceChange24H
+                                    .toStringAsFixed(2)
+                                    .toString()
+                                    .replaceAll('-', '')
+                            : "\$" + item.priceChange24H.toStringAsFixed(2),
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 11,
                           fontWeight: FontWeight.normal,
                           color: Colors.grey,
                         ),
                       ),
-                      SizedBox(width: widthOne * 0.03),
+                      SizedBox(width: widthOne * 0.02),
                       Text(
-                        item.marketCapChangePercentage24H.toStringAsFixed(2),
+                        item.marketCapChangePercentage24H.toStringAsFixed(2) +
+                            '%',
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 11,
                           fontWeight: FontWeight.normal,
-                          color: Colors.grey,
+                          color: item.marketCapChangePercentage24H >= 0
+                              ? kgreen
+                              : Colors.red,
                         ),
                       ),
                     ],

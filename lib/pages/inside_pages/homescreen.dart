@@ -1,6 +1,7 @@
 import 'package:crypto_api/constants.dart';
 import 'package:crypto_api/models/coin_model.dart';
 import 'package:crypto_api/pages/components/item.dart';
+import 'package:crypto_api/pages/components/item2.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -45,20 +46,20 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: kdarkgrey.withOpacity(0.5),
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    child: Text(
+                    child: const Text(
                       "Main Portfolio",
                       style: TextStyle(
                         fontSize: 16,
                       ),
                     ),
                   ),
-                  Text(
+                  const Text(
                     "Top 10",
                     style: TextStyle(
                       fontSize: 16,
                     ),
                   ),
-                  Text(
+                  const Text(
                     "Experimental",
                     style: TextStyle(
                       fontSize: 16,
@@ -72,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     '\$ 3,879.09',
                     style: TextStyle(
                       fontSize: 21,
@@ -113,10 +114,17 @@ class _HomeScreenState extends State<HomeScreen> {
               height: heightOne * 0.7,
               width: widthOne,
               decoration: const BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                      blurRadius: 5,
+                      color: kdarkgrey,
+                      spreadRadius: 3,
+                      offset: Offset(0, 3)),
+                ],
                 color: kdarkgrey,
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
+                  topLeft: Radius.circular(50),
+                  topRight: Radius.circular(50),
                 ),
               ),
               child: Column(
@@ -139,13 +147,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Expanded(
                     child: isRefreshing == true
-                        ? Center(
+                        ? const Center(
                             child: CircularProgressIndicator(),
                           )
                         : ListView.builder(
-                            itemCount: 4,
+                            itemCount: 5,
                             shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
+                            // physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
                               return Item(
                                 item: coinMarket![index],
@@ -153,28 +161,43 @@ class _HomeScreenState extends State<HomeScreen> {
                             },
                           ),
                   ),
+                  SizedBox(
+                    height: heightOne * 0.02,
+                  ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: widthOne * 0.08),
-                    child: Row(
+                    padding: EdgeInsets.symmetric(horizontal: widthOne * 0.05),
+                    child: const Row(
                       children: [
                         Text(
                           "Recommend to buy",
                           style: TextStyle(
-                            fontSize: 23,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ],
                     ),
                   ),
                   SizedBox(
-                    height: heightOne * 0.02,
+                    height: heightOne * 0.001,
                   ),
-                  Expanded(
-                    child: Container(
-                      // height: heightOne * 0.23,
-                      width: widthOne,
-                      color: kgreen,
+                  Container(
+                    height: 160,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: widthOne * 0.03),
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: coinMarket!.length,
+                        itemBuilder: (context, index) {
+                          return Item2(
+                            item: coinMarket![index],
+                          );
+                        },
+                      ),
                     ),
+                  ),
+                  SizedBox(
+                    height: heightOne * 0.01,
                   ),
                 ],
               ),
