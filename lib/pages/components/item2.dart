@@ -1,5 +1,6 @@
 import 'package:crypto_api/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:crypto_api/pages/select_stock.dart';
 
 class Item2 extends StatelessWidget {
   var item;
@@ -15,7 +16,16 @@ class Item2 extends StatelessWidget {
         vertical: heightOne * 0.02,
       ),
       child: GestureDetector(
-        onTap: () {},
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (contest) => SelectCoin(
+                selectItem: item,
+              ),
+            ),
+          );
+        },
         child: Container(
           padding: EdgeInsets.symmetric(
               horizontal: widthOne * 0.03, vertical: heightOne * 0.02),

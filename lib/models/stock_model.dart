@@ -7,6 +7,36 @@ String coinModelToJson(List<CoinModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class CoinModel {
+  CoinModel({
+    required this.id,
+    required this.symbol,
+    required this.name,
+    required this.image,
+    required this.currentPrice,
+    // required this.marketCap,
+    required this.marketCapRank,
+    // required this.fullyDilutedValuation,
+    required this.totalVolume,
+    required this.high24H,
+    required this.low24H,
+    required this.priceChange24H,
+    // required this.priceChangePercentage24H,
+    // required this.marketCapChange24H,
+    required this.marketCapChangePercentage24H,
+    // required this.circulatingSupply,
+    // required this.totalSupply,
+    // required this.maxSupply,
+    // required this.ath,
+    // required this.athChangePercentage,
+    // required this.athDate,
+    // required this.atl,
+    // required this.atlChangePercentage,
+    // required this.atlDate,
+    // this.roi,
+    // required this.lastUpdated,
+    required this.sparklineIn7D,
+  });
+
   String id;
   String symbol;
   String name;
@@ -35,36 +65,6 @@ class CoinModel {
   // DateTime lastUpdated;
   SparklineIn7D sparklineIn7D;
 
-  CoinModel({
-    required this.id,
-    required this.symbol,
-    required this.name,
-    required this.image,
-    required this.currentPrice,
-    // required this.marketCap,
-    required this.marketCapRank,
-    // required this.fullyDilutedValuation,
-    required this.totalVolume,
-    required this.high24H,
-    required this.low24H,
-    required this.priceChange24H,
-    // required this.priceChangePercentage24H,
-    // required this.marketCapChange24H,
-    required this.marketCapChangePercentage24H,
-    // required this.circulatingSupply,
-    // required this.totalSupply,
-    // required this.maxSupply,
-    // required this.ath,
-    // required this.athChangePercentage,
-    // required this.athDate,
-    // required this.atl,
-    // required this.atlChangePercentage,
-    // required this.atlDate,
-    // required this.roi,
-    // required this.lastUpdated,
-    required this.sparklineIn7D,
-  });
-
   factory CoinModel.fromJson(Map<String, dynamic> json) => CoinModel(
         id: json["id"],
         symbol: json["symbol"],
@@ -78,8 +78,7 @@ class CoinModel {
         high24H: json["high_24h"].toDouble(),
         low24H: json["low_24h"].toDouble(),
         priceChange24H: json["price_change_24h"]?.toDouble(),
-        // priceChangePercentage24H:
-        //     json["price_change_percentage_24h"]?.toDouble(),
+        // priceChangePercentage24H: json["price_change_percentage_24h"]?.toDouble(),
         // marketCapChange24H: json["market_cap_change_24h"],
         marketCapChangePercentage24H:
             json["market_cap_change_percentage_24h"]?.toDouble(),
@@ -129,11 +128,11 @@ class CoinModel {
 }
 
 class SparklineIn7D {
-  List<double> price;
-
   SparklineIn7D({
     required this.price,
   });
+
+  List<double> price;
 
   factory SparklineIn7D.fromJson(Map<String, dynamic> json) => SparklineIn7D(
         price: List<double>.from(json["price"].map((x) => x?.toDouble())),

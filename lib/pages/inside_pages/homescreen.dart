@@ -1,5 +1,5 @@
 import 'package:crypto_api/constants.dart';
-import 'package:crypto_api/models/coin_model.dart';
+import 'package:crypto_api/models/stock_model.dart';
 import 'package:crypto_api/pages/components/item.dart';
 import 'package:crypto_api/pages/components/item2.dart';
 import 'package:flutter/material.dart';
@@ -96,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: widthOne * 0.07),
-              child: Row(
+              child: const Row(
                 children: [
                   Text(
                     "+ 201% all time",
@@ -156,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             // physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
                               return Item(
-                                item: coinMarket![index],
+                                item: stockMarket![index],
                               );
                             },
                           ),
@@ -181,16 +181,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: heightOne * 0.001,
                   ),
-                  Container(
+                  SizedBox(
                     height: 160,
                     child: Padding(
                       padding: EdgeInsets.only(left: widthOne * 0.03),
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: coinMarket!.length,
+                        itemCount: stockMarket!.length,
                         itemBuilder: (context, index) {
                           return Item2(
-                            item: coinMarket![index],
+                            item: stockMarket![index],
                           );
                         },
                       ),
@@ -210,23 +210,27 @@ class _HomeScreenState extends State<HomeScreen> {
 
   bool isRefreshing = true;
 
-  List? coinMarket = [];
-  var coinMarketList;
+  List? stockMarket = [];
+  var stockMarketList;
   Future<List<CoinModel>?> getCoinMarket() async {
     const url =
         'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&sparkline=true';
+
     setState(() {
-      isRefreshing = false;
+      isRefreshing = true;
     });
     var response = await http.get(Uri.parse(url), headers: {
       "Content-Type": "application/json",
       "Accept": "application/json",
     });
+    setState(() {
+      isRefreshing = false;
+    });
     if (response.statusCode == 200) {
       var x = response.body;
-      coinMarketList = coinModelFromJson(x);
+      stockMarketList = coinModelFromJson(x);
       setState(() {
-        coinMarket = coinMarketList;
+        stockMarket = stockMarketList;
       });
     } else {
       print(response.statusCode);
